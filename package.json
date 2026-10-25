@@ -1,0 +1,60 @@
+{
+  "name": "dsh-prompt-forge",
+  "version": "0.1.0",
+  "description": "DSH 输入框按钮式提示词优化：把口语需求改写为结构化产品需求",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./typert": {
+      "default": "./lib/typert.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-slots"
+      ]
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "dsh-client-plugin",
+    "prompt",
+    "prompt-engineering",
+    "prompt-optimizer",
+    "structured-prompt"
+  ],
+  "author": "ly14278",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ly14278/dsh-prompt-forge.git"
+  },
+  "homepage": "https://github.com/ly14278/dsh-prompt-forge#readme",
+  "bugs": {
+    "url": "https://github.com/ly14278/dsh-prompt-forge/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,10 @@
+# dsh-prompt-forge 自带的 Cordis 补丁层。
+#
+# 当本包被写进 profile 的 `dsh.profile.bundles` 数组时，这个文件会被加载器当作
+# 一层补丁合成进 Cordis 配置树，从而自动插入一条插件条目。
+#
+# 如果你选择手动安装（把包放进 profile 的 node_modules 并在 profile 的
+# cordis.patch.yml 里追加同样的 insert 条目），这个文件不生效也没有关系。
+- insert:
+    - id: dsh-prompt-forge
+      name: dsh-prompt-forge
