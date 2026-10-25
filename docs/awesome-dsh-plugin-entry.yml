@@ -1,0 +1,8 @@
+url: https://github.com/ly14278/dsh-prompt-forge
+name: ly14278/dsh-prompt-forge
+category: ui
+description:
+  en: 'Adds an Optimize button to the DSH composer that rewrites a rough idea into a structured product brief, then offers accept, regenerate or cancel before touching your text.'
+  zh: '在 DSH 输入框加一个「优化」按钮，把口语化的想法改写成结构化产品需求，改写前后左右对比，可选接受、重新生成或取消。'
+icon: https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/logo.png
+tarball: https://github.com/ly14278/dsh-prompt-forge/releases/download/v0.1.0/dsh-prompt-forge-0.1.0.tgz

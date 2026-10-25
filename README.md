@@ -177,6 +177,18 @@ Host 半侧（`lib/index.js`、`lib/typert.js`）是**进程启动时**加载的
 
 见 [CHANGELOG.md](./CHANGELOG.md)。
 
+## 从 Release 安装（不需要 npm）
+
+每个版本都会把预构建的 `dsh-prompt-forge-<version>.tgz` 附在 GitHub Release 上，也可以直接指向仓库：
+
+```bash
+# Release 上的预构建包
+dsh plugin --profile desktop add https://github.com/ly14278/dsh-prompt-forge/releases/download/v0.1.0/dsh-prompt-forge-0.1.0.tgz
+
+# 或者直接从仓库装（走源码，无需构建步骤）
+dsh plugin --profile desktop add github:ly14278/dsh-prompt-forge
+```
+
 ## 发布到 npm / 插件市场
 
 包已经按 npm 包习惯准备好（`files` 白名单只发 `lib/`、`cordis.patch.yml`、`README.md`、`LICENSE`）：
@@ -194,6 +206,10 @@ dsh plugin --profile desktop add dsh-prompt-forge
 ```
 
 （`dsh plugin` 会把 pnpm 追加参数转发到 profile，等价于在 profile 目录里 `pnpm add dsh-prompt-forge`。）
+
+插件市场的条目格式见 [`docs/awesome-dsh-plugin-entry.yml`](./docs/awesome-dsh-plugin-entry.yml)，提交目标是
+[awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 的 `data/plugins/ly14278__dsh-prompt-forge.yml`。
+市场收录后，在 DSH 的「插件 → 发现」里能直接搜到并一键安装。
 
 ## 仓库
 
