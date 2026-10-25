@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/logo.png" width="104" height="104" alt="dsh-prompt-forge logo">
+  <img src="https://raw.githubusercontent.com/ly14278/dsh-prompt-brief/main/docs/images/logo.png" width="104" height="104" alt="dsh-prompt-brief logo">
 </p>
 
-<h1 align="center">dsh-prompt-forge</h1>
+<h1 align="center">dsh-prompt-brief</h1>
 
 <p align="center">
-  <a href="https://github.com/ly14278/dsh-prompt-forge/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-4F8CFF.svg" alt="MIT"></a>
+  <a href="https://github.com/ly14278/dsh-prompt-brief/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-4F8CFF.svg" alt="MIT"></a>
   <img src="https://img.shields.io/badge/DeepSeek%20Harness-plugin-4F8CFF.svg" alt="DeepSeek Harness plugin">
   <img src="https://img.shields.io/badge/runtime-zero%20dependency-52C41A.svg" alt="zero runtime dependency">
 </p>
@@ -18,7 +18,7 @@
 
 ## 效果
 
-![原文与优化结果的左右对比弹窗](https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/compare-dialog.png)
+![原文与优化结果的左右对比弹窗](https://raw.githubusercontent.com/ly14278/dsh-prompt-brief/main/docs/images/compare-dialog.png)
 
 输入（口语）：
 
@@ -46,11 +46,11 @@
 
 ## 工作流程
 
-![四步：写一句口令 → 点优化 → 左右对照 → 接受或重来](https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/flow.png)
+![四步：写一句口令 → 点优化 → 左右对照 → 接受或重来](https://raw.githubusercontent.com/ly14278/dsh-prompt-brief/main/docs/images/flow.png)
 
 ## 按钮在哪
 
-![输入框右侧的优化按钮](https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/optimize-button.png)
+![输入框右侧的优化按钮](https://raw.githubusercontent.com/ly14278/dsh-prompt-brief/main/docs/images/optimize-button.png)
 
 按钮挂在 `conversation.input.right` 槽位，位于发送按钮左侧，和 `dsh-better-input` 的 ✨ 图标是两套独立按钮，可以共存。
 
@@ -71,17 +71,17 @@
    ```powershell
    # 例：desktop profile
    $profile = "$env:USERPROFILE\.dsh\profiles\desktop"
-   Copy-Item -Recurse -Force .\* "$profile\node_modules\dsh-prompt-forge"
+   Copy-Item -Recurse -Force .\* "$profile\node_modules\dsh-prompt-brief"
    ```
 
-2. 在 `$profile\package.json` 的 `dsh.profile.bundles` 末尾加一行 `"dsh-prompt-forge"`：
+2. 在 `$profile\package.json` 的 `dsh.profile.bundles` 末尾加一行 `"dsh-prompt-brief"`：
 
    ```jsonc
    "dsh": { "profile": { "bundles": [
      "@deepseek-ai/dsh-base",
      "@deepseek-ai/dsh-web-app",
      "…其他插件…",
-     "dsh-prompt-forge"
+     "dsh-prompt-brief"
    ] } }
    ```
 
@@ -91,12 +91,12 @@
 
 ### 方式 B：只改 patch 层（不动 package.json）
 
-把包复制进 `node_modules\dsh-prompt-forge`，然后在 `$profile\cordis.patch.yml` 末尾追加：
+把包复制进 `node_modules\dsh-prompt-brief`，然后在 `$profile\cordis.patch.yml` 末尾追加：
 
 ```yaml
 - insert:
-    - id: dsh-prompt-forge
-      name: dsh-prompt-forge
+    - id: dsh-prompt-brief
+      name: dsh-prompt-brief
 ```
 
 重启后生效。本机 desktop profile 目前用的就是这种方式。
@@ -116,11 +116,11 @@
 
 ## 配置（可选，全部可省略）
 
-在 profile 的 `cordis.patch.yml` 里给 `dsh-prompt-forge` 加 `config:` 即可覆盖：
+在 profile 的 `cordis.patch.yml` 里给 `dsh-prompt-brief` 加 `config:` 即可覆盖：
 
 ```yaml
-- id: dsh-prompt-forge
-  name: dsh-prompt-forge
+- id: dsh-prompt-brief
+  name: dsh-prompt-brief
   config:
     provider: deepseek-account     # 留空 = 用当前 profile 的默认模型
     model: deepseek-flash
@@ -134,15 +134,15 @@
 
 ## 卸载
 
-1. 从 `dsh.profile.bundles` 删掉 `"dsh-prompt-forge"`，或删掉 `cordis.patch.yml` 里那条 `insert`。
-2. 删除 `$profile\node_modules\dsh-prompt-forge`。
+1. 从 `dsh.profile.bundles` 删掉 `"dsh-prompt-brief"`，或删掉 `cordis.patch.yml` 里那条 `insert`。
+2. 删除 `$profile\node_modules\dsh-prompt-brief`。
 3. 重启 DSH、刷新页面。
 
 ## 改完代码怎么生效
 
 Host 半侧（`lib/index.js`、`lib/typert.js`）是**进程启动时**加载的，改完必须：
 
-1. 把改动的文件重新同步到 profile 的安装目录（`$profile/node_modules/dsh-prompt-forge/lib/`）——Desktop 的 profile 里是一份真实拷贝，不是软链；
+1. 把改动的文件重新同步到 profile 的安装目录（`$profile/node_modules/dsh-prompt-brief/lib/`）——Desktop 的 profile 里是一份真实拷贝，不是软链；
 2. 完全退出 DSH Desktop 再打开（只刷新页面不够），然后点按钮验证。
 
 浏览器半侧（`lib/client.js`）由 Web 服务按 rev 现取，刷新页面即可看到按钮外观变化，但同样建议整机重启一次，避免新旧代码混用。
@@ -179,14 +179,14 @@ Host 半侧（`lib/index.js`、`lib/typert.js`）是**进程启动时**加载的
 
 ## 从 Release 安装（不需要 npm）
 
-每个版本都会把预构建的 `dsh-prompt-forge-<version>.tgz` 附在 GitHub Release 上，也可以直接指向仓库：
+每个版本都会把预构建的 `dsh-prompt-brief-<version>.tgz` 附在 GitHub Release 上，也可以直接指向仓库：
 
 ```bash
 # Release 上的预构建包
-dsh plugin --profile desktop add https://github.com/ly14278/dsh-prompt-forge/releases/download/v0.1.0/dsh-prompt-forge-0.1.0.tgz
+dsh plugin --profile desktop add https://github.com/ly14278/dsh-prompt-brief/releases/download/v0.1.0/dsh-prompt-brief-0.1.0.tgz
 
 # 或者直接从仓库装（走源码，无需构建步骤）
-dsh plugin --profile desktop add github:ly14278/dsh-prompt-forge
+dsh plugin --profile desktop add github:ly14278/dsh-prompt-brief
 ```
 
 ## 发布到 npm / 插件市场
@@ -194,7 +194,7 @@ dsh plugin --profile desktop add github:ly14278/dsh-prompt-forge
 包已经按 npm 包习惯准备好（`files` 白名单只发 `lib/`、`cordis.patch.yml`、`README.md`、`LICENSE`）：
 
 ```bash
-cd packages/dsh-prompt-forge
+cd packages/dsh-prompt-brief
 npm login
 npm publish --access public
 ```
@@ -202,19 +202,19 @@ npm publish --access public
 发布后，别人装插件只需要一条命令：
 
 ```bash
-dsh plugin --profile desktop add dsh-prompt-forge
+dsh plugin --profile desktop add dsh-prompt-brief
 ```
 
-（`dsh plugin` 会把 pnpm 追加参数转发到 profile，等价于在 profile 目录里 `pnpm add dsh-prompt-forge`。）
+（`dsh plugin` 会把 pnpm 追加参数转发到 profile，等价于在 profile 目录里 `pnpm add dsh-prompt-brief`。）
 
 插件市场的条目格式见 [`docs/awesome-dsh-plugin-entry.yml`](./docs/awesome-dsh-plugin-entry.yml)，提交目标是
-[awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 的 `data/plugins/ly14278__dsh-prompt-forge.yml`。
+[awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 的 `data/plugins/ly14278__dsh-prompt-brief.yml`。
 市场收录后，在 DSH 的「插件 → 发现」里能直接搜到并一键安装。
 
 ## 仓库
 
-- GitHub：<https://github.com/ly14278/dsh-prompt-forge>
-- 问题反馈：<https://github.com/ly14278/dsh-prompt-forge/issues>
+- GitHub：<https://github.com/ly14278/dsh-prompt-brief>
+- 问题反馈：<https://github.com/ly14278/dsh-prompt-brief/issues>
 
 ## 许可
 

@@ -1,7 +1,7 @@
 {
-  "name": "dsh-prompt-forge",
-  "version": "0.1.0",
-  "description": "DSH 输入框按钮式提示词优化：把口语需求改写为结构化产品需求",
+  "name": "dsh-prompt-brief",
+  "version": "0.1.1",
+  "description": "把一句口语需求写成结构化产品简报（定位 / 核心功能 / 视觉参考 / 设计规范），输入框一键触发，左右对照后接受、重新生成或取消",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -49,11 +49,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ly14278/dsh-prompt-forge.git"
+    "url": "git+https://github.com/ly14278/dsh-prompt-brief.git"
   },
-  "homepage": "https://github.com/ly14278/dsh-prompt-forge#readme",
+  "homepage": "https://github.com/ly14278/dsh-prompt-brief#readme",
   "bugs": {
-    "url": "https://github.com/ly14278/dsh-prompt-forge/issues"
+    "url": "https://github.com/ly14278/dsh-prompt-brief/issues"
   },
   "publishConfig": {
     "access": "public"
