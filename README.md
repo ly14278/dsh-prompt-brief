@@ -1,6 +1,16 @@
-# dsh-prompt-forge
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/logo.png" width="104" height="104" alt="dsh-prompt-forge logo">
+</p>
 
-给 DeepSeek Harness 输入框加一个「优化」按钮：把一句口语化的想法，改写成能直接交给设计、研发落地的**结构化产品需求**。
+<h1 align="center">dsh-prompt-forge</h1>
+
+<p align="center">
+  <a href="https://github.com/ly14278/dsh-prompt-forge/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-4F8CFF.svg" alt="MIT"></a>
+  <img src="https://img.shields.io/badge/DeepSeek%20Harness-plugin-4F8CFF.svg" alt="DeepSeek Harness plugin">
+  <img src="https://img.shields.io/badge/runtime-zero%20dependency-52C41A.svg" alt="zero runtime dependency">
+</p>
+
+<p align="center">给 DeepSeek Harness 输入框加一个「优化」按钮：把一句口语化的想法，改写成能直接交给设计、研发落地的<strong>结构化产品需求</strong>。</p>
 
 点一下按钮 → 弹出「原文 / 优化结果」左右对比 → **接受**（回填输入框）/ **重新生成** / **取消**。
 
@@ -8,11 +18,13 @@
 
 ## 效果
 
+![原文与优化结果的左右对比弹窗](https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/compare-dialog.png)
+
 输入（口语）：
 
 > 我想买一个东西，这个东西在京东、拼多多等商城都有卖，但我不知道这会儿是不是历史最低价格，我希望有一种工具，在历史低价或者价格在某个区间时就主动提醒我去购买
 
-点「优化」后得到（结构化）：
+点「优化」后得到（结构化，可直接发送）：
 
 > 一个多平台商品价格监控工具，帮助用户自动追踪京东、拼多多等商城商品价格，在达到历史低价或预设区间时主动推送购买提醒
 >
@@ -31,6 +43,16 @@
 输出结构固定为：一句话定位 → 核心功能（3–6 条） → 视觉参考（用户提到时） → 设计规范（用户提到或明显必要时）。
 
 示例里的品牌、配色、圆角都来自用户原话——插件不内置任何品牌预设，也不会把示例内容套到无关需求上。
+
+## 工作流程
+
+![四步：写一句口令 → 点优化 → 左右对照 → 接受或重来](https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/flow.png)
+
+## 按钮在哪
+
+![输入框右侧的优化按钮](https://raw.githubusercontent.com/ly14278/dsh-prompt-forge/main/docs/images/optimize-button.png)
+
+按钮挂在 `conversation.input.right` 槽位，位于发送按钮左侧，和 `dsh-better-input` 的 ✨ 图标是两套独立按钮，可以共存。
 
 ## 设计思路
 
@@ -140,6 +162,7 @@ Host 半侧（`lib/index.js`、`lib/typert.js`）是**进程启动时**加载的
 | `lib/typert.js` | Host face manifest：`{ package, face: 'host', schemas, model, invocations }`，被 `@deepseek-ai/dsh-typert-loader` 通过 `exports["./typert"]` 自动发现并注册，Gateway 据此做参数边界校验与派发。 |
 | `lib/client.js` | 浏览器 bundle：`window.__ModuleLoader__.load({ id, factory })` 形式，向 `conversation.input.right` 槽位注册按钮，弹窗用 `createPortal` 挂到 `document.body`。 |
 | `cordis.patch.yml` | 包自身的 loader patch：把插件插成 root entry。 |
+| `docs/images/` | README 用的示意图（由 `scripts` 之外的本地脚本绘制，不参与运行时）。 |
 
 调用链：按钮 → `remote.promptForge.optimize(text, context, signal)`（客户端 Typert 描述符）→ Gateway 校验 → `PromptForgeService.optimize()` → `ctx.llm.prepareCall()` + `prepared.stream()` → 文本返回弹窗。
 
@@ -149,6 +172,10 @@ Host 半侧（`lib/index.js`、`lib/typert.js`）是**进程启动时**加载的
 - **不改动 DSH 本体**：只用公开的插件契约（`dsh.bundle.patch`、`dsh.client`、`exports["./typert"]`、Typert Remote 描述符）。
 - **与 `dsh-better-input` 的区别**：那个插件的 ✨ 是「润色/改写一句话」，没有「重新生成」和双栏对比；本插件的输出是固定结构的完整产品需求（定位 + 核心功能 + 视觉参考 + 设计规范），并且提供 接受 / 重新生成 / 取消 三段式确认。两者可以共存，按钮文案与图标不同。
 - **模型侧约束**：系统提示词强制「只输出成品正文、不丢用户信息、不臆造冲突事实、不输出代码块/JSON」，因此结果可以直接粘进输入框发送。
+
+## 更新日志
+
+见 [CHANGELOG.md](./CHANGELOG.md)。
 
 ## 发布到 npm / 插件市场
 
@@ -176,4 +203,3 @@ dsh plugin --profile desktop add dsh-prompt-forge
 ## 许可
 
 MIT © 2026 ly14278，见 [LICENSE](./LICENSE)。
-
